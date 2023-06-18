@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FSchnorrSignature"
         mc:Ignorable="d"
-        Title="Schnorr algorithm" Height="500" Width="800">
+        Title="Schnorr algorithm" Height="500" Width="1050">
     <Window.DataContext>
         <local:ViewModel/>
     </Window.DataContext>

@@ -197,42 +197,70 @@ namespace FSchnorrSignature
             set
             {
                 this.v = value;
+                OnPropertyChanged(nameof(V));
             }
         }
         public string A
         {
             get => this.a;
-            set => this.a = value;
+            set
+            {
+                this.a = value;
+                OnPropertyChanged(nameof(A));
+            }
         }
         public string P
         {
             get => this.p;
-            set => this.p = value;
+            set
+            {
+                this.p = value;
+                OnPropertyChanged(nameof(P));
+            }
         }
         public string Q
         {
             get => this.q;
-            set => this.q = value;
+            set
+            {
+                this.q = value;
+                OnPropertyChanged(nameof(Q));
+            }
         }
         public string H
         {
             get => this.h;
-            set => this.h = value;
+            set
+            {
+                this.h = value;
+                OnPropertyChanged(nameof(H));
+            }
         }
         public string S1
         {
             get => this.s1;
-            set=> this.s1 = value;
+            set
+            {
+                this.s1 = value;
+                OnPropertyChanged(nameof(S1));
+            }
         }
         public string S2
         {
             get => this.s2;
-            set => this.s2 = value;
+            set
+            {
+                this.s2 = value;
+                OnPropertyChanged(nameof(S2));
+            }
         }
         public string M
         {
             get => this.m;
-            set => this.m = value;
+            set  {
+                this.m = value;
+                OnPropertyChanged(nameof(M));
+            }
         }
 
         public Command GenerateParams => this.generateParams;
