@@ -18,7 +18,7 @@ namespace FSchnorrSignatureLogic
 
         private void FillPQ(ref SchnorrParams schnorrParams, SchnorrSecurityParams schnorrSecurityParams)
         {
-            schnorrParams.P = BigIntegerUtility.GetRandomProbablePrime(schnorrSecurityParams.PBitsLength, primalityFactor);
+            /*schnorrParams.P = BigIntegerUtility.GetRandomProbablePrime(schnorrSecurityParams.PBitsLength, primalityFactor);
             BigInteger _q = BigIntegerUtility.GetRandomProbablePrime(schnorrSecurityParams.QBitsLength, primalityFactor);
 
             BigInteger rem = ((schnorrParams.P - 1) % _q);
@@ -36,13 +36,32 @@ namespace FSchnorrSignatureLogic
                 {
                     throw new ArgumentException("Invalid/to narrow schnorrSecurityParams given");
                 }
+            }*/
+
+            schnorrParams.Q = BigIntegerUtility.GetRandomProbablePrime(schnorrSecurityParams.QBitsLength, primalityFactor);
+            BigInteger rem;
+            do
+            {
+                //schnorrParams.P = BigIntegerUtility.GetRandomProbablePrime(schnorrSecurityParams.PBitsLength, primalityFactor);
+                schnorrParams.P = BigIntegerUtility.GetRandomNonnegative(schnorrSecurityParams.PBitsLength);
+                rem = (schnorrParams.P - 1) % schnorrParams.Q;
+                schnorrParams.P -= rem;
             }
+            while (!BigIntegerUtility.IsProbablePrime(schnorrParams.P, primalityFactor));
+
+            /* TEST*/
+            // OK BigInteger test = (schnorrParams.P - 1) % schnorrParams.Q;
         }
         private void FillH(ref SchnorrParams schnorrParams, SchnorrSecurityParams schnorrSecurityParams)
         {
-            BigInteger ratio = (schnorrParams.P - 1) % schnorrParams.Q;
+            BigInteger ratio = (schnorrParams.P - 1) / schnorrParams.Q;
             BigInteger hSeed = BigIntegerUtility.GetRandomNonnegative(schnorrSecurityParams.QBitsLength);
             schnorrParams.H = BigInteger.ModPow(hSeed, ratio, schnorrParams.P);
+
+            /* TEST */
+            // OK BigInteger __test = ratio * schnorrParams.Q + 1;
+            // OK BigInteger _test = BigInteger.ModPow(schnorrParams.H, schnorrParams.Q, schnorrParams.P);
+            
         }
 
         private void FillAV(ref SchnorrParams schnorrParams, SchnorrSecurityParams schnorrSecurityParams)
@@ -51,6 +70,12 @@ namespace FSchnorrSignatureLogic
             schnorrParams.A = 2 + _a;
             BigInteger exponent = schnorrParams.P - 1 - schnorrParams.A;
             schnorrParams.V = BigInteger.ModPow(schnorrParams.H, exponent, schnorrParams.P);
+
+            /* TEST */
+            // BigInteger test = BigInteger.ModPow(schnorrParams.H, schnorrParams.A, schnorrParams.P);
+            // test *= schnorrParams.V;
+            // OK test %= schnorrParams.P;
+
         }   
 
 
@@ -81,10 +106,10 @@ namespace FSchnorrSignatureLogic
         public override bool VerifySignature(byte[] data, SchnorrParams schnorrParams, (BigInteger s1, BigInteger s2) signature)
         {
             BigInteger hs2 = BigInteger.ModPow(schnorrParams.H, signature.s2, schnorrParams.P);
-            BigInteger hs1 = BigInteger.ModPow(schnorrParams.H, signature.s1, schnorrParams.P);
+            BigInteger vs1 = BigInteger.ModPow(schnorrParams.V, signature.s1, schnorrParams.P);
 
 
-            BigInteger Z = (hs1 * hs2) % schnorrParams.P;
+            BigInteger Z = (hs2 * vs1) % schnorrParams.P;
             byte[] MZ = data.Concat(Z.ToByteArray()).ToArray();
             using SHA256 sha256 = SHA256.Create();
             BigInteger fMZ = new BigInteger(sha256.ComputeHash(MZ));

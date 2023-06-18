@@ -81,6 +81,8 @@ namespace FSchnorrSignature
 
         private void VerifySignature_ExecuteReceived(object? sender, EventArgs e)
         {
+            this.model.SetVerificationParams(v, p, q, h, s1, s2);
+            this.model.SetMessage(m);
             bool verified = this.model.VerifySignature();
             if (verified) {
                 ViewModel.WindowService.ShowMessage("Podpis zweryfikowany");
@@ -119,6 +121,8 @@ namespace FSchnorrSignature
 
         private void GenerateSignature_ExecuteReceived(object? sender, EventArgs e)
         {
+            this.model.SetSigningParams(v, a, p, q, h);
+            this.model.SetMessage(m);
             this.model.GenerateSignature();
             //this.model.GetSigningParams(out v, out a, out p, out q, out h);
             this.model.GetVerificationParams(out v, out p, out q, out h, out s1, out s2);

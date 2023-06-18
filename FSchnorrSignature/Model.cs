@@ -87,6 +87,11 @@ namespace FSchnorrSignature
             m = Encoding.ASCII.GetString(this.m);
         }
 
+        public void SetMessage(string m)
+        {
+            this.m = Encoding.ASCII.GetBytes(m);
+        }
+
         public void GetPrivateKey(out string a)
         {
             a = this.a.ToString("x");

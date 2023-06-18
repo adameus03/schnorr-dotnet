@@ -52,7 +52,7 @@ namespace FSchnorrSignatureLogic
             return false;
         }
 
-        private static bool IsProbablePrime(BigInteger n, int k)
+        public static bool IsProbablePrime(BigInteger n, int k)
         {
             if (n <= 1 || n == 4) return false;
             if (n <= 3) return true;
