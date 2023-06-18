@@ -78,9 +78,9 @@
                     <TextBox Text="{Binding Path=H, Mode=TwoWay}"/>
                 </StackPanel>
                 <Button Command="{Binding FreadPublicParams}">Wczytaj parametry publiczne z pliku (v, p, q, h)</Button>
-                <Button Command="{Binding FreadPrivateKey}">Wczytaj klucz prywatny z pliku (a)</Button>
+                <!--<Button Command="{Binding FreadPrivateKey}">Wczytaj klucz prywatny z pliku (a)</Button>-->
                 <Button Command="{Binding FwritePublicParams}">Zapisz parametry publiczne do pliku (v, p, q, h)</Button>
-                <Button Command="{Binding FwritePrivateKey}">Zapisz klucz prywatny do pliku (a)</Button>
+                <!--<Button Command="{Binding FwritePrivateKey}">Zapisz klucz prywatny do pliku (a)</Button>-->
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Dane (M): "/>
