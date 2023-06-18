@@ -40,7 +40,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Dane do podpisu(M): "/>
-                    <TextBox Text="{Binding Path=M, Mode=TwoWay}"/>
+                    <TextBox Text="{Binding Path=M, Mode=TwoWay}" MaxHeight="50"/>
                 </StackPanel>
 
                 <Button Command="{Binding LoadData}">Wczytaj dane (M) z pliku</Button>
@@ -84,7 +84,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Dane (M): "/>
-                    <TextBox Text="{Binding Path=M, Mode=TwoWay}"/>
+                    <TextBox Text="{Binding Path=M, Mode=TwoWay}" MaxHeight="50"/>
                 </StackPanel>
 
                 <Button Command="{Binding LoadData}">Wczytaj dane (M) z pliku</Button>
